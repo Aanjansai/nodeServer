@@ -1,0 +1,15 @@
+image: docker:stable
+
+services:
+- docker:dind
+
+stages:
+  - Build image and push
+
+docker build:
+  stage: Build image and push
+  script:
+  - docker build -t aanjan1112/nodejs-backend-server:v1 .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push aanjan1112/nodejs-backend-server:v1
+
