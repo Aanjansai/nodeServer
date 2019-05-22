@@ -6,7 +6,10 @@ services:
 stages:
   - Build image and push
   - Code quality test
+<<<<<<< HEAD
 
+=======
+>>>>>>> 739da9685d8f27dfb7a354f00a4ab9e8460602a8
 docker build:
   stage: Build image and push
   script:
@@ -14,6 +17,10 @@ docker build:
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push aanjan1112/nodejs-backend-server:v1
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 739da9685d8f27dfb7a354f00a4ab9e8460602a8
 codequality:
   stage: Code quality test
   image: docker:latest
