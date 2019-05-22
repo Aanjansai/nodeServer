@@ -5,6 +5,7 @@ services:
 
 stages:
   - Build image and push
+  - Code quality test
 
 docker build:
   stage: Build image and push
@@ -13,10 +14,8 @@ docker build:
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push aanjan1112/nodejs-backend-server:v1
 
-include:
-  - template: Code-Quality.gitlab-ci.yml
-
 codequality:
+  stage: Code quality test
   image: docker:latest
   variables:
     DOCKER_DRIVER: overlay
