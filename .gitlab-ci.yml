@@ -3,12 +3,9 @@ image: docker:stable
 services:
 - docker:dind
 
-include:
-  - template: Code-Quality.gitlab-ci.yml
-
 stages:
   - Build image and push
-
+  - Code quality test
 docker build:
   stage: Build image and push
   script:
@@ -18,6 +15,7 @@ docker build:
 
 
 codequality:
+  stage: Code quality test
   image: docker:latest
   variables:
     DOCKER_DRIVER: overlay
