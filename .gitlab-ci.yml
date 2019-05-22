@@ -3,6 +3,9 @@ image: docker:stable
 services:
 - docker:dind
 
+include:
+  - template: Code-Quality.gitlab-ci.yml
+
 stages:
   - Build image and push
 
@@ -13,8 +16,6 @@ docker build:
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push aanjan1112/nodejs-backend-server:v1
 
-include:
-  - template: Code-Quality.gitlab-ci.yml
 
 codequality:
   image: docker:latest
