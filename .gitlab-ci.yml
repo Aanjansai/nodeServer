@@ -6,10 +6,8 @@ services:
 stages:
   - Build image and push
   - Code quality test
-<<<<<<< HEAD
+  - Test
 
-=======
->>>>>>> 739da9685d8f27dfb7a354f00a4ab9e8460602a8
 docker build:
   stage: Build image and push
   script:
@@ -17,10 +15,6 @@ docker build:
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push aanjan1112/nodejs-backend-server:v1
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 739da9685d8f27dfb7a354f00a4ab9e8460602a8
 codequality:
   stage: Code quality test
   image: docker:latest
@@ -34,5 +28,16 @@ codequality:
     - docker run --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate:0.69.0 analyze -f json > codeclimate.json || true
   artifacts:
     paths: [codeclimate.json]
+
+lint:sonar:
+  stage: Test
+  image: aanjan1112/nodejs-backend-server:v1
+  script:
+  - npm install -g sonarqube-scanner
+  - sonar-scanner \
+    -Dsonar.projectKey=server \
+    -Dsonar.sources=. \
+    -Dsonar.host.url=http://localhost:9000 \
+    -Dsonar.login=87023ea29c09c7310d17bdc3e837609b82c5e7bc
 
 
